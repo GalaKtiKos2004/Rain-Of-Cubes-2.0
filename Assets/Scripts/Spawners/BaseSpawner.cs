@@ -50,8 +50,10 @@ public abstract class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
 
     private T CreateObject()
     {
+        int objectsInPoolCount = Pool.CountAll + 1;
+
         T obj = Instantiate(Prefab);
-        ObjectInstantiated?.Invoke(Pool.CountAll + 1);
+        ObjectInstantiated?.Invoke(objectsInPoolCount);
         return obj;
     }
 }
