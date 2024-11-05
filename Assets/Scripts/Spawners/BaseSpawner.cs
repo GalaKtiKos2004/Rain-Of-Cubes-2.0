@@ -8,10 +8,12 @@ public abstract class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
 
     protected ObjectPool<T> Pool;
 
-    protected virtual void Awake()
+    protected T Prefab => _prefab;
+
+    private void Awake()
     {
         Pool = new ObjectPool<T>(
-            createFunc: () => Instantiate(_prefab),
+            createFunc: CreateObject,
             actionOnGet: T => ActionOnGet(T),
             actionOnRelease: T => T.gameObject.SetActive(false),
             actionOnDestroy: T => Destroy(T),
@@ -20,5 +22,9 @@ public abstract class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
             maxSize: _poolMaxSize);
     }
 
+    protected abstract T CreateObject();
+
     protected abstract void ActionOnGet(T t);
+
+    protected abstract void ReturnInPool(T t);
 }

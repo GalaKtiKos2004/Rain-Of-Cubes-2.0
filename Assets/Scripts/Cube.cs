@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Renderer))]
 [RequireComponent (typeof(CubeColorChanger))]
@@ -31,7 +32,7 @@ public class Cube : MonoBehaviour
             {
                 _platforms.Add(platform);
                 _colorChanger.Change(platform.DeathColor);
-                StartCoroutine(CountDeathDelay(UnityEngine.Random.Range(_minLifeTime, _maxLifeTime)));
+                StartCoroutine(CountDeathDelay(Random.Range(_minLifeTime, _maxLifeTime)));
             }
         }
     }
