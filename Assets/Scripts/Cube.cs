@@ -16,7 +16,7 @@ public class Cube : MonoBehaviour
 
     private List<Platform> _platforms = new List<Platform>();
 
-    public event Action<GameObject> Disappearing;
+    public event Action<Cube> Disappearing;
 
     private void Awake()
     {
@@ -48,6 +48,6 @@ public class Cube : MonoBehaviour
 
         yield return wait;
 
-        Disappearing?.Invoke(gameObject);
+        Disappearing?.Invoke(this);
     }
 }
