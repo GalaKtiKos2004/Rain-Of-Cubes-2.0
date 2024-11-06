@@ -25,12 +25,11 @@ public class CubeSpawner : BaseSpawner<Cube>
 
         cube.transform.position = new Vector3(Random.Range(_minXPosition, _maxXPosition), _positionY, _positionZ);
         cube.Init();
-        cube.Disappearing += ReturnInPool;
     }
 
     protected override void ReturnInPool(Cube cube)
     {
-        cube.Disappearing -= ReturnInPool;
+        base.ReturnInPool(cube);
 
         _bombSpawner.CreateBomb(cube.transform.position);
         Pool.Release(cube);

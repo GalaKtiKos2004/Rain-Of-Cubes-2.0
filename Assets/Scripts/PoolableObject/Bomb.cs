@@ -5,7 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Renderer))]
-public class Bomb : MonoBehaviour
+public class Bomb : PoolableObject<Bomb>
 {
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionForce;
@@ -17,7 +17,7 @@ public class Bomb : MonoBehaviour
     private float _minAlphaValue = 0f;
     private float _maxAlphaValue = 1f;
 
-    public event Action<Bomb> Exploded;
+    //public event Action<Bomb> Exploded;
 
     private void Awake()
     {
@@ -38,7 +38,8 @@ public class Bomb : MonoBehaviour
     {
         List<Rigidbody> explodableObjects = GetExplodableObjects();
 
-        Exploded?.Invoke(this);
+        //Exploded?.Invoke(this);
+        Disable();
 
         foreach (Rigidbody explodableObject in explodableObjects)
         {

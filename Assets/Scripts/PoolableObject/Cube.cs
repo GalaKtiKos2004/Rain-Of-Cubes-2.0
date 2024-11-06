@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Renderer))]
 [RequireComponent (typeof(CubeColorChanger))]
 [RequireComponent (typeof(Rigidbody))]
-public class Cube : MonoBehaviour
+public class Cube : PoolableObject<Cube>
 {
     [SerializeField] private Color _startColor;
     [SerializeField] private float _minLifeTime = 2f;
@@ -17,7 +17,7 @@ public class Cube : MonoBehaviour
 
     private List<Platform> _platforms = new List<Platform>();
 
-    public event Action<Cube> Disappearing;
+    //public event Action<Cube> Disappearing;
 
     private void Awake()
     {
@@ -49,6 +49,7 @@ public class Cube : MonoBehaviour
 
         yield return wait;
 
-        Disappearing?.Invoke(this);
+        //Disappearing?.Invoke(this);
+        Disable();
     }
 }

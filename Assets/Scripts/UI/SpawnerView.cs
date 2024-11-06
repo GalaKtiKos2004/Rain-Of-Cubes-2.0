@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class SpawnerView<T, K> : MonoBehaviour where T : BaseSpawner<K> where K : MonoBehaviour
+public class SpawnerView<T, K> : MonoBehaviour where T : BaseSpawner<K> where K : PoolableObject<K>
 {
     [SerializeField] private TextMeshProUGUI _spawnedText;
     [SerializeField] private TextMeshProUGUI _instantiatedText;

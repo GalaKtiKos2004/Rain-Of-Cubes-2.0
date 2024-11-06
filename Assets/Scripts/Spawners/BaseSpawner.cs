@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public abstract class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class BaseSpawner<T> : MonoBehaviour where T : PoolableObject<T>
 {
     [SerializeField] private T _prefab;
     [SerializeField] protected int _poolMaxSize;
@@ -37,10 +37,14 @@ public abstract class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
         _spawnedCount++;
         ObjectSpawned?.Invoke(_spawnedCount);
         ActiveObjectCountChanged?.Invoke(Pool.CountActive);
+        t.Disabled += ReturnInPool;
     }
 
 
-    protected abstract void ReturnInPool(T t);
+    protected virtual void ReturnInPool(T t)
+    {
+        t.Disabled -= ReturnInPool;
+    }
 
     private void ActionOnRelease(T obj)
     {

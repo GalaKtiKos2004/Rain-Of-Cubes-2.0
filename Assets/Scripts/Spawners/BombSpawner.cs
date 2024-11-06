@@ -8,16 +8,9 @@ public class BombSpawner : BaseSpawner<Bomb>
         bomb.Init(position);
     }
 
-    protected override void ActionOnGet(Bomb bomb)
-    {
-        base.ActionOnGet(bomb);
-
-        bomb.Exploded += ReturnInPool;
-    }
-
     protected override void ReturnInPool(Bomb bomb)
     {
-        bomb.Exploded -= ReturnInPool;
+        base.ReturnInPool(bomb);
         Pool.Release(bomb);
     }
 }
